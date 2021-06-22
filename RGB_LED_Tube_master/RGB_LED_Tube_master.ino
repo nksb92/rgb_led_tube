@@ -1,4 +1,6 @@
 #include <FastLED.h>
+#include <TimerOne.h>
+#include <SoftwareSerial.h>
 
 #define TXSIZE 5
 
@@ -11,12 +13,15 @@ CHSV WHITE_ONE(0, 0, 152);
 
 // variable definition
 int time_int = 50;
-int func_choice = 3;
+int func_choice = 0;
 int slave_number = 2;
 int color_shift = 0;
 int lower_limit = 0;
 int upper_limit = 0;
 CHSV choosen_color = PURE_RED;
+
+// init softwareSerial interface
+//SoftwareSerial bluetooth_con(2, 3);
 
 void send_data(int adress, int hue, int sat, int val)
 /*
@@ -152,11 +157,31 @@ void one_color(int adress, CHSV color)
   send_data(adress, color[0] % 255, color[1], color[2]);
 }
 
+/*void serial_data()
+
+    @brief -> interrupts the main programm and reads the bluetooth data in
+
+{
+  if (bluetooth_con.available() > 0)
+  {
+    byte character = bluetooth_con.read();
+    if (character == byte("<")) {
+      byte message[9];
+      bluetooth_con.readBytes(message, 9);
+    }
+  }
+}*/
+
 void setup()
 {
   delay(1000);
   // begin of the Serial communication
+  //bluetooth_con.begin(9600);
+  //delay(100);
   Serial.begin(9600);
+  delay(100);
+  //Timer1.initialize(1000);
+  //Timer1.attachInterrupt(serial_data);
 }
 
 void loop()
