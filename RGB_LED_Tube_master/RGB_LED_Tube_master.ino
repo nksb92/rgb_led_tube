@@ -1,4 +1,4 @@
-#include <FastLED.h>
+#include <FastLED.h> 
 #include <TimerOne.h>
 #include <SoftwareSerial.h>
 
@@ -13,15 +13,16 @@ CHSV WHITE_ONE(0, 0, 152);
 
 // variable definition
 int time_int = 50;
-int func_choice = 0;
+int func_choice = 4;
 int slave_number = 2;
 int color_shift = 0;
-int lower_limit = 0;
-int upper_limit = 0;
+int lower_limit = 150;
+int upper_limit = 190;
 CHSV choosen_color = PURE_RED;
 
-// init softwareSerial interface
-//SoftwareSerial bluetooth_con(2, 3);
+// init softwareSerial interfaces, RX=0;2, TX=1;3
+SoftwareSerial rs485(0, 1);
+SoftwareSerial bluetooth_con(2, 3);
 
 void send_data(int adress, int hue, int sat, int val)
 /*
@@ -33,7 +34,7 @@ void send_data(int adress, int hue, int sat, int val)
 */
 {
   byte message[TXSIZE] = {byte("<"), byte(adress), byte(hue), byte(sat), byte(val)};
-  Serial.write(message, TXSIZE);
+  rs485.write(message, TXSIZE);
 }
 
 void rainbow(int slave_number, int color_shift)
@@ -147,20 +148,20 @@ void all_one_color(int slave_number, CHSV color, int color_shift)
   }
 }
 
-void one_color(int adress, CHSV color)
-/*
-   @brief -> sets one tube to a color
-   @param adress -> int adress of the slave deveice
-   @param color -> CHSV color to be displayed
-*/
+void half_one_color(int slave_number, CHSV color_one, CHSV color_two)
 {
-  send_data(adress, color[0] % 255, color[1], color[2]);
+  for (int i = 0; i < slave_number; i++)
+  {
+    if (i < slave_number / 2) send_data(i, color_one[0], color_one[1], color_one[2]);
+    else send_data(i, color_two[0], color_two[1], color_two[2]);
+  }
+  delay(500);
 }
 
-/*void serial_data()
-
+void serial_data()
+/*
     @brief -> interrupts the main programm and reads the bluetooth data in
-
+*/
 {
   if (bluetooth_con.available() > 0)
   {
@@ -170,18 +171,17 @@ void one_color(int adress, CHSV color)
       bluetooth_con.readBytes(message, 9);
     }
   }
-}*/
+}
 
 void setup()
 {
   delay(1000);
   // begin of the Serial communication
-  //bluetooth_con.begin(9600);
-  //delay(100);
-  Serial.begin(9600);
+  bluetooth_con.begin(9600);
+  rs485.begin(9600);
   delay(100);
-  //Timer1.initialize(1000);
-  //Timer1.attachInterrupt(serial_data);
+  Timer1.initialize(1000);
+  Timer1.attachInterrupt(serial_data);
 }
 
 void loop()
@@ -199,5 +199,7 @@ void loop()
       break;
     case 3:
       police_light(slave_number);
+    case 4:
+      half_one_color(slave_number, PURE_RED, PURE_BLUE);
   }
 }
