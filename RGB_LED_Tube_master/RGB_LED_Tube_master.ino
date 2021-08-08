@@ -26,15 +26,13 @@ CHSV CHOOSEN_COLOR_TWO = PURE_BLUE;
 SoftwareSerial rs485(0, 1);
 SoftwareSerial bluetooth_con(2, 3);
 
-int RANDOM_LIST[32] = {4, 1, 6, 12, 31, 29, 13, 25, 24, 3, 2, 30, 14, 23, 7, 28, 19, 18, 21, 27, 16, 17, 22, 9, 10, 26, 15, 0, 20, 8, 5, 11};
-
 void send_data(int adress, int hue, int sat, int value)
-/*
-     @brief -> sends the color information as an byte array to the given adress
-     @param adress -> int adress of the slave deveice
-     @param hue -> int angle of the color, 0-255
-     @param sat -> int the saturation of the color, 0-255
-     @param value -> int value of the color, 0-255
+/**
+    @brief -> sends the color information as an byte array to the given adress
+    @param adress -> int adress of the slave deveice
+    @param hue -> int angle of the color, 0-255
+    @param sat -> int the saturation of the color, 0-255
+    @param value -> int value of the color, 0-255
 */
 {
   byte message[TXSIZE] = {byte("<"), byte(adress), byte(hue), byte(sat), byte(value)};
@@ -42,9 +40,9 @@ void send_data(int adress, int hue, int sat, int value)
 }
 
 void blackout(int slave_number)
-/*
-   @brief -> sets all tubes to the color black
-   @param slave_number -> int number how many slave deveices are connected
+/**
+    @brief -> sets all tubes to the color black
+    @param slave_number -> int number how many slave deveices are connected
 */
 {
   for (int i = 0; i < slave_number; i++)
@@ -53,20 +51,21 @@ void blackout(int slave_number)
   }
 }
 
-void flash(int time_delay, int slave_number, CHSV color, int *rand_list)
-/*
-   @brief -> flashes one tube at a time with a certain delay in an generated "random" order
-   @param
+void flash(int time_delay, int slave_number, CHSV color)
+/**
+    @brief -> flashes one tube at a time with a certain delay in an generated "random" order
+    @param
 */
 {
   blackout(slave_number);
-  delay(500);
-  send_data((rand_list[0] % slave_number), color[0], color[1], color[2]);
-  delay(500);
+  delay(time_delay);
+  int rx_deveice = random(0, slave_number);
+  send_data(rx_deveice, color[0], color[1], color[2]);
+  delay(time_delay);
 }
 
 void rainbow(int slave_number, int color_shift, int time_delay)
-/*
+/**
     @brief -> sets all tubes to a rainbow animation
     @param slave_number -> int number how many slave deveices are connected
     @param color_shift -> int shift of the color angle between the deveices, 0-x
@@ -85,14 +84,14 @@ void rainbow(int slave_number, int color_shift, int time_delay)
 }
 
 void color_fade(int slave_number, int color_shift, int lower_limit, int upper_limit, int time_delay)
-/*
-     @brief -> fades from the lower limit of hue to the upper limit and backwards
-     @param slave_number -> int number how many slave deveices are connected
-     @param color_shift -> int shift of the color angle between the deveices, 0-x
-     @param lower_limit -> int angle of the color to start with, 0-255
-     @param upper_limit -> int angle of the color to stop and reverse, 0-255
-     @note -> lower limit has to be a smaller number than upper limit
-     @param time_delay -> time in milliseconds, gets mulitplied with ten for delay, 0-255
+/**
+    @brief -> fades from the lower limit of hue to the upper limit and backwards
+    @param slave_number -> int number how many slave deveices are connected
+    @param color_shift -> int shift of the color angle between the deveices, 0-x
+    @param lower_limit -> int angle of the color to start with, 0-255
+    @param upper_limit -> int angle of the color to stop and reverse, 0-255
+    @note -> lower limit has to be a smaller number than upper limit
+    @param time_delay -> time in milliseconds, gets mulitplied with ten for delay, 0-255
 */
 {
   time_delay *= 10;
@@ -115,7 +114,7 @@ void color_fade(int slave_number, int color_shift, int lower_limit, int upper_li
 }
 
 void police_light(int slave_number)
-/*
+/**
      @brief -> mimics a police light
      @param slave_number -> int number how many slave deveices are connected
 */
@@ -158,11 +157,11 @@ void police_light(int slave_number)
 }
 
 void all_one_color(int slave_number, CHSV color, int color_shift)
-/*
-   @brief -> sets all tubes to one color
-   @param slave_number -> int number how many slave deveices are connected
-   @param color -> CHSV color to be displayed
-   @param color_shift -> int shift of the color angle between the deveices, 0-x
+/**
+    @brief -> sets all tubes to one color
+    @param slave_number -> int number how many slave deveices are connected
+    @param color -> CHSV color to be displayed
+    @param color_shift -> int shift of the color angle between the deveices, 0-x
 */
 {
   for (int i = 0; i < slave_number; i++)
@@ -173,11 +172,11 @@ void all_one_color(int slave_number, CHSV color, int color_shift)
 }
 
 void half_one_color(int slave_number, CHSV color_one, CHSV color_two)
-/*
-   @brief -> sets half of all slave deveices to the first color and the other half to the other color
-   @param slave_number -> int number how many slave deveices are connected
-   @param color_one -> CHSV color for the first half
-   @param color_two -> CHSV color for the seccond half
+/**
+    @brief -> sets half of all slave deveices to the first color and the other half to the other color
+    @param slave_number -> int number how many slave deveices are connected
+    @param color_one -> CHSV color for the first half
+    @param color_two -> CHSV color for the seccond half
 */
 {
   for (int i = 0; i < slave_number; i++)
@@ -189,15 +188,15 @@ void half_one_color(int slave_number, CHSV color_one, CHSV color_two)
 }
 
 void breathe(int slave_number, int color_shift, int lower_limit, int upper_limit, CHSV color, int time_delay)
-/*
-   @brief -> fades the brightness from the lower limit to the upper limit and back
-   @param slave_number -> int number how many slave deveices are connected
-   @param color_shift -> int shift of the color angle between the deveices, 0-x
-   @param lower_limit -> int angle of the color to start with, 0-255
-   @param upper_limit -> int angle of the color to stop and reverse, 0-255
-   @note -> lower limit has to be a smaller number than upper limit
-   @param color -> CHSV color for the tubes
-   @param time_delay -> time in milliseconds, gets mulitplied with ten for delay, 0-255
+/**
+    @brief -> fades the brightness from the lower limit to the upper limit and back
+    @param slave_number -> int number how many slave deveices are connected
+    @param color_shift -> int shift of the color angle between the deveices, 0-x
+    @param lower_limit -> int angle of the color to start with, 0-255
+    @param upper_limit -> int angle of the color to stop and reverse, 0-255
+    @note -> lower limit has to be a smaller number than upper limit
+    @param color -> CHSV color for the tubes
+    @param time_delay -> time in milliseconds, gets mulitplied with ten for delay, 0-255
 */
 {
   color[2] = lower_limit;
@@ -218,12 +217,12 @@ void breathe(int slave_number, int color_shift, int lower_limit, int upper_limit
 }
 
 void running_light(int time_delay, int slave_number, CHSV color_one, CHSV color_two)
-/*
-   @brief -> running light, one tube at a time with "background" color
-   @param time delay -> time in milliseconds
-   @param slave_number -> int number how many slave deveices are connected
-   @param color_one -> CHSV color of the "background"
-   @param color_two -> CHSV color of the running light
+/**
+    @brief -> running light, one tube at a time with "background" color
+    @param time_delay -> time in milliseconds
+    @param slave_number -> int number how many slave deveices are connected
+    @param color_one -> CHSV color of the "background"
+    @param color_two -> CHSV color of the running light
 */
 {
   for (int i = 0; i < slave_number; i++)
@@ -238,8 +237,8 @@ void running_light(int time_delay, int slave_number, CHSV color_one, CHSV color_
 }
 
 void serial_data()
-/*
-   @brief -> interrupts the main programm and reads the bluetooth data in
+/**
+    @brief -> interrupts the main programm and reads the bluetooth data in
 */
 {
   if (bluetooth_con.available() > 0)
@@ -262,6 +261,8 @@ void setup()
   // init the timer interrupt
   Timer1.initialize(1000);
   Timer1.attachInterrupt(serial_data);
+  // creating the random seed
+  randomSeed(50);
 }
 
 void loop()
@@ -287,7 +288,7 @@ void loop()
       breathe(SLAVE_NUMBER, COLOR_SHIFT, LOWER_LIMIT, UPPER_LIMIT, CHOOSEN_COLOR_ONE, TIME_DELAY);
       break;
     case 6:
-      flash(TIME_DELAY, SLAVE_NUMBER, CHOOSEN_COLOR_ONE, RANDOM_LIST);
+      flash(TIME_DELAY, SLAVE_NUMBER, CHOOSEN_COLOR_ONE);
       break;
     case 7:
       running_light(TIME_DELAY, SLAVE_NUMBER, CHOOSEN_COLOR_ONE, CHOOSEN_COLOR_TWO);
