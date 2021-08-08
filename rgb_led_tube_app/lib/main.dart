@@ -12,7 +12,9 @@ class rgb_led_app extends StatelessWidget {
     return MaterialApp(
       title: "RGB LED TUBES",
       theme: ThemeData(
-          brightness: Brightness.dark, primarySwatch: Colors.deepOrange),
+        brightness: Brightness.dark,
+        primarySwatch: Colors.deepOrange,
+      ),
       home: Scaffold(
           appBar: AppBar(
             centerTitle: true,
