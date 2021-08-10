@@ -64,7 +64,7 @@ class _flash_state extends State<flash> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Hue", helperText: "0-255"),
                         onChanged: (String txt) => hue = txt,
                         onFieldSubmitted: (String txt) => save(),
@@ -83,7 +83,7 @@ class _flash_state extends State<flash> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Sat", helperText: "0-255"),
                         onChanged: (String txt) => sat = txt,
                         onFieldSubmitted: (String txt) => save(),
@@ -102,28 +102,9 @@ class _flash_state extends State<flash> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Val", helperText: "0-255"),
                         onChanged: (String txt) => val = txt,
-                        onFieldSubmitted: (String txt) => save(),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(3),
-                        ],
-                        decoration: InputDecoration(
-                            labelText: "Shift", helperText: "0-255"),
-                        onChanged: (String txt) => shift = txt,
                         onFieldSubmitted: (String txt) => save(),
                       ),
                     ),
@@ -136,10 +117,10 @@ class _flash_state extends State<flash> {
                 Expanded(
                     flex: 1,
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
+                      padding: const EdgeInsets.all(8.0),
+                      child: const Text(
                         "Delay:",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white60,
                         ),
@@ -171,8 +152,8 @@ class _flash_state extends State<flash> {
                 Expanded(
                   flex: 1,
                   child: SwitchListTile(
-                    title: Text("Predefined Colors"),
-                    secondary: Icon(Icons.color_lens),
+                    title: const Text("Predefined Colors"),
+                    secondary: const Icon(Icons.color_lens),
                     activeColor: Colors.deepOrange,
                     value: isChecked,
                     onChanged: (bool? value) {
@@ -185,7 +166,7 @@ class _flash_state extends State<flash> {
                 Expanded(
                   flex: 1,
                   child: Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: DropdownButton<String>(
                       value: dropdownValue,
                       icon: const Icon(

@@ -61,7 +61,7 @@ class _all_one_color_state extends State<all_one_color> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Hue", helperText: "0-255"),
                         onChanged: (String txt) => hue = txt,
                         onFieldSubmitted: (String txt) => save(),
@@ -80,7 +80,7 @@ class _all_one_color_state extends State<all_one_color> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Sat", helperText: "0-255"),
                         onChanged: (String txt) => sat = txt,
                         onFieldSubmitted: (String txt) => save(),
@@ -99,7 +99,7 @@ class _all_one_color_state extends State<all_one_color> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Val", helperText: "0-255"),
                         onChanged: (String txt) => val = txt,
                         onFieldSubmitted: (String txt) => save(),
@@ -118,7 +118,7 @@ class _all_one_color_state extends State<all_one_color> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Shift", helperText: "0-255"),
                         onChanged: (String txt) => shift = txt,
                         onFieldSubmitted: (String txt) => save(),
@@ -134,8 +134,8 @@ class _all_one_color_state extends State<all_one_color> {
                 Expanded(
                   flex: 1,
                   child: SwitchListTile(
-                    title: Text("Predefined Colors"),
-                    secondary: Icon(Icons.color_lens),
+                    title: const Text("Predefined Colors"),
+                    secondary: const Icon(Icons.color_lens),
                     activeColor: Colors.deepOrange,
                     value: isChecked,
                     onChanged: (bool? value) {
@@ -148,7 +148,7 @@ class _all_one_color_state extends State<all_one_color> {
                 Expanded(
                   flex: 1,
                   child: Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: DropdownButton<String>(
                       value: dropdownValue,
                       icon: const Icon(

@@ -7,6 +7,7 @@ import 'package:rgb_led_tube_app/all_one_color.dart';
 import 'package:rgb_led_tube_app/breathe.dart';
 import 'package:rgb_led_tube_app/color_fade.dart';
 import 'package:rgb_led_tube_app/flash.dart';
+import 'package:rgb_led_tube_app/half_one_color.dart';
 
 class Item {
   Item({
@@ -34,7 +35,8 @@ class _ExpansionPanelHolderState extends State<ExpansionPanelHolder> {
     Item(id: 0, expandedValue: all_one_color(), headerValue: "ALL ONE COLOR"),
     Item(id: 1, expandedValue: breathe(), headerValue: "BREATHE"),
     Item(id: 2, expandedValue: color_fade(), headerValue: "COLOR FADE"),
-    Item(id: 3, expandedValue: flash(), headerValue: "FLASH")
+    Item(id: 3, expandedValue: flash(), headerValue: "FLASH"),
+    Item(id: 4, expandedValue: half_one_color(), headerValue: "HALF ONE COLOR")
   ];
 
   @override
@@ -49,7 +51,7 @@ class _ExpansionPanelHolderState extends State<ExpansionPanelHolder> {
   Widget _buildPanel() {
     return ExpansionPanelList.radio(
       animationDuration: Duration(milliseconds: 400),
-      initialOpenPanelValue: 3,
+      initialOpenPanelValue: 4,
       children: _data.map<ExpansionPanelRadio>((Item item) {
         return ExpansionPanelRadio(
             canTapOnHeader: true,
@@ -58,7 +60,7 @@ class _ExpansionPanelHolderState extends State<ExpansionPanelHolder> {
               return ListTile(
                 title: Text(
                   item.headerValue,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     letterSpacing: 4.0,
                     wordSpacing: 4.0,

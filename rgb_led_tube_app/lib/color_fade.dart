@@ -59,7 +59,7 @@ class _color_fade_state extends State<color_fade> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Shift", helperText: "0-255"),
                         onChanged: (String txt) => shift = txt,
                         onFieldSubmitted: (String txt) => save(),
@@ -78,7 +78,7 @@ class _color_fade_state extends State<color_fade> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Lower Limit", helperText: "0-255"),
                         onChanged: (String txt) => lower_limit = txt,
                         onFieldSubmitted: (String txt) => save(),
@@ -97,7 +97,7 @@ class _color_fade_state extends State<color_fade> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: "Upper Limit", helperText: "0-255"),
                         onChanged: (String txt) => upper_limit = txt,
                         onFieldSubmitted: (String txt) => save(),
@@ -113,9 +113,9 @@ class _color_fade_state extends State<color_fade> {
                     flex: 1,
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text(
+                      child: const Text(
                         "Delay:",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white60,
                         ),

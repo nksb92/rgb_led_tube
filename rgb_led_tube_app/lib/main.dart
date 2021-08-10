@@ -20,7 +20,7 @@ class rgb_led_app extends StatelessWidget {
             centerTitle: true,
             title: const Text(
               "RGB LED TUBES",
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 30,
                 letterSpacing: 5.0,
               ),
@@ -28,20 +28,20 @@ class rgb_led_app extends StatelessWidget {
           ),
           drawer: Drawer(
             child: ListView(
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(8.0),
               children: <Widget>[
                 DrawerHeader(
-                  child: Text(
+                  child: const Text(
                     'Options',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 24,
                     ),
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.bluetooth),
-                  title: Text("Connect BT-Deveice"),
+                  leading: const Icon(Icons.bluetooth),
+                  title: const Text("Connect BT-Deveice"),
                   onTap: () {},
                 )
               ],
