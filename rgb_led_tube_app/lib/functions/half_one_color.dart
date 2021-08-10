@@ -1,57 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class breathe extends StatefulWidget {
-  const breathe({Key? key}) : super(key: key);
+class half_one_color extends StatefulWidget {
+  const half_one_color({Key? key}) : super(key: key);
 
   @override
-  _breathe_state createState() => _breathe_state();
+  _half_one_color_state createState() => _half_one_color_state();
 }
 
-class _breathe_state extends State<breathe> {
+class _half_one_color_state extends State<half_one_color> {
   final GlobalKey<FormState> formKey = GlobalKey();
-  String hue = "";
-  String sat = "";
-  String val = "";
-  String shift = "";
-  String lower_limit = "";
-  String upper_limit = "";
+  String hue_one = "";
+  String hue_two = "";
+  String sat_one = "";
+  String sat_two = "";
+  String val_one = "";
+  String val_two = "";
   bool isChecked = false;
-  String dropdownValue = "Red";
-  double _currentSliderValue = 50;
+  String drop_down_value_one = "Red";
+  String drop_down_value_two = "Blue";
 
   void save() {
-    int int_hue = 0;
-    int int_sat = 0;
-    int int_val = 0;
-    int int_lower_limit = 0;
-    int int_upper_limit = 255;
-    double delay = _currentSliderValue;
+    int int_hue_one = 0;
+    int int_sat_one = 0;
+    int int_val_one = 0;
+    int int_hue_two = 0;
+    int int_sat_two = 0;
+    int int_val_two = 0;
     // build method in root class
     if (!isChecked) {
-      if (hue.length > 0) {
-        int_hue = int.parse(hue);
+      if (hue_one.length > 0) {
+        int_hue_one = int.parse(hue_one);
       }
-      if (sat.length > 0) {
-        int_sat = int.parse(sat);
+      if (sat_one.length > 0) {
+        int_sat_one = int.parse(sat_one);
       }
-      if (val.length > 0) {
-        int_val = int.parse(val);
+      if (val_one.length > 0) {
+        int_val_one = int.parse(val_one);
       }
-      if (lower_limit.length > 0) {
-        int_lower_limit = int.parse(lower_limit);
+      if (hue_two.length > 0) {
+        int_hue_two = int.parse(hue_two);
       }
-      if (upper_limit.length > 0) {
-        int_upper_limit = int.parse(upper_limit);
+      if (sat_two.length > 0) {
+        int_sat_two = int.parse(sat_two);
       }
-      print(int_hue);
-      print(int_sat);
-      print(int_val);
-      print(int_lower_limit);
-      print(int_upper_limit);
-      print(delay);
+      if (val_two.length > 0) {
+        int_val_two = int.parse(val_two);
+      }
     } else {
-      print(dropdownValue);
+      print(drop_down_value_one);
+      print(drop_down_value_two);
     }
   }
 
@@ -76,9 +74,9 @@ class _breathe_state extends State<breathe> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
-                            labelText: "Hue", helperText: "0-255"),
-                        onChanged: (String txt) => hue = txt,
+                        decoration: const InputDecoration(
+                            labelText: "Hue 1", helperText: "0-255"),
+                        onChanged: (String txt) => hue_one = txt,
                         onFieldSubmitted: (String txt) => save(),
                       ),
                     ),
@@ -95,9 +93,9 @@ class _breathe_state extends State<breathe> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
-                            labelText: "Sat", helperText: "0-255"),
-                        onChanged: (String txt) => sat = txt,
+                        decoration: const InputDecoration(
+                            labelText: "Sat 1", helperText: "0-255"),
+                        onChanged: (String txt) => sat_one = txt,
                         onFieldSubmitted: (String txt) => save(),
                       ),
                     ),
@@ -114,70 +112,9 @@ class _breathe_state extends State<breathe> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(3),
                         ],
-                        decoration: InputDecoration(
-                            labelText: "Val", helperText: "0-255"),
-                        onChanged: (String txt) => val = txt,
-                        onFieldSubmitted: (String txt) => save(),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(3),
-                        ],
-                        decoration: InputDecoration(
-                            labelText: "Shift", helperText: "0-255"),
-                        onChanged: (String txt) => shift = txt,
-                        onFieldSubmitted: (String txt) => save(),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(3),
-                        ],
-                        decoration: InputDecoration(
-                            labelText: "Lower Limit", helperText: "0-255"),
-                        onChanged: (String txt) => lower_limit = txt,
-                        onFieldSubmitted: (String txt) => save(),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(3),
-                        ],
-                        decoration: InputDecoration(
-                            labelText: "Upper Limit", helperText: "0-255"),
-                        onChanged: (String txt) => upper_limit = txt,
+                        decoration: const InputDecoration(
+                            labelText: "Val 1", helperText: "0-255"),
+                        onChanged: (String txt) => val_one = txt,
                         onFieldSubmitted: (String txt) => save(),
                       ),
                     ),
@@ -188,35 +125,62 @@ class _breathe_state extends State<breathe> {
             Row(
               children: <Widget>[
                 Expanded(
-                    flex: 1,
+                  flex: 1,
+                  child: SizedBox(
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Delay:",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white60,
-                        ),
-                        textAlign: TextAlign.center,
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(3),
+                        ],
+                        decoration: const InputDecoration(
+                            labelText: "Hue 2", helperText: "0-255"),
+                        onChanged: (String txt) => hue_two = txt,
+                        onFieldSubmitted: (String txt) => save(),
                       ),
-                    )),
-                Expanded(
-                  flex: 4,
-                  child: Slider(
-                    value: _currentSliderValue,
-                    min: 1,
-                    max: 255,
-                    divisions: 255,
-                    label: _currentSliderValue.round().toString(),
-                    onChanged: (double value) {
-                      setState(
-                        () {
-                          _currentSliderValue = value;
-                        },
-                      );
-                    },
+                    ),
                   ),
-                )
+                ),
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(3),
+                        ],
+                        decoration: const InputDecoration(
+                            labelText: "Sat 2", helperText: "0-255"),
+                        onChanged: (String txt) => sat_two = txt,
+                        onFieldSubmitted: (String txt) => save(),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(3),
+                        ],
+                        decoration: const InputDecoration(
+                            labelText: "Val 2", helperText: "0-255"),
+                        onChanged: (String txt) => val_two = txt,
+                        onFieldSubmitted: (String txt) => save(),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
             Row(
@@ -225,8 +189,8 @@ class _breathe_state extends State<breathe> {
                 Expanded(
                   flex: 1,
                   child: SwitchListTile(
-                    title: Text("Predefined Colors"),
-                    secondary: Icon(Icons.color_lens),
+                    title: const Text("Predefined Colors"),
+                    secondary: const Icon(Icons.color_lens),
                     activeColor: Colors.deepOrange,
                     value: isChecked,
                     onChanged: (bool? value) {
@@ -236,12 +200,29 @@ class _breathe_state extends State<breathe> {
                     },
                   ),
                 ),
+              ],
+            ),
+            Row(
+              children: [
                 Expanded(
                   flex: 1,
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
+                    child: const Text(
+                      "First Color:",
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: DropdownButton<String>(
-                      value: dropdownValue,
+                      value: drop_down_value_one,
                       icon: const Icon(
                         Icons.arrow_drop_down,
                         color: Colors.deepOrange,
@@ -254,7 +235,58 @@ class _breathe_state extends State<breathe> {
                       onChanged: (String? newValue) {
                         setState(
                           () {
-                            dropdownValue = newValue!;
+                            drop_down_value_one = newValue!;
+                          },
+                        );
+                      },
+                      items: <String>['Red', 'Green', 'Blue', 'White']
+                          .map<DropdownMenuItem<String>>(
+                        (String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        },
+                      ).toList(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const Text(
+                      "Seccond Color:",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DropdownButton<String>(
+                      value: drop_down_value_two,
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.deepOrange,
+                      ),
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                      underline: Container(
+                        height: 1,
+                        color: Colors.deepOrangeAccent,
+                      ),
+                      onChanged: (String? newValue) {
+                        setState(
+                          () {
+                            drop_down_value_two = newValue!;
                           },
                         );
                       },
@@ -276,7 +308,7 @@ class _breathe_state extends State<breathe> {
               padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
               child: ElevatedButton(
                 onPressed: save,
-                child: Icon(Icons.send),
+                child: const Icon(Icons.send),
               ),
             )
           ],
