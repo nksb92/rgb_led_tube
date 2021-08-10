@@ -19,6 +19,7 @@ class _running_light_state extends State<running_light> {
   bool isChecked = false;
   String drop_down_value_one = "Red";
   String drop_down_value_two = "Blue";
+  double _currentSliderValue = 50;
 
   void save() {
     int int_hue_one = 0;
@@ -27,6 +28,7 @@ class _running_light_state extends State<running_light> {
     int int_hue_two = 0;
     int int_sat_two = 0;
     int int_val_two = 0;
+    double delay = _currentSliderValue;
     // build method in root class
     if (!isChecked) {
       if (hue_one.length > 0) {
@@ -181,6 +183,40 @@ class _running_light_state extends State<running_light> {
                     ),
                   ),
                 ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: const Text(
+                        "Delay:",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.white60,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
+                Expanded(
+                  flex: 4,
+                  child: Slider(
+                    value: _currentSliderValue,
+                    min: 1,
+                    max: 255,
+                    divisions: 255,
+                    label: _currentSliderValue.round().toString(),
+                    onChanged: (double value) {
+                      setState(
+                        () {
+                          _currentSliderValue = value;
+                        },
+                      );
+                    },
+                  ),
+                )
               ],
             ),
             Row(
