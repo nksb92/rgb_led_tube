@@ -3,11 +3,12 @@
 // Here is a simple example of how to implement ExpansionPanelList.
 
 import 'package:flutter/material.dart';
-import 'package:rgb_led_tube_app/all_one_color.dart';
-import 'package:rgb_led_tube_app/breathe.dart';
-import 'package:rgb_led_tube_app/color_fade.dart';
-import 'package:rgb_led_tube_app/flash.dart';
-import 'package:rgb_led_tube_app/half_one_color.dart';
+import 'package:rgb_led_tube_app/functions/all_one_color.dart';
+import 'package:rgb_led_tube_app/functions/breathe.dart';
+import 'package:rgb_led_tube_app/functions/color_fade.dart';
+import 'package:rgb_led_tube_app/functions/flash.dart';
+import 'package:rgb_led_tube_app/functions/half_one_color.dart';
+import 'package:rgb_led_tube_app/functions/police_light.dart';
 
 class Item {
   Item({
@@ -36,7 +37,8 @@ class _ExpansionPanelHolderState extends State<ExpansionPanelHolder> {
     Item(id: 1, expandedValue: breathe(), headerValue: "BREATHE"),
     Item(id: 2, expandedValue: color_fade(), headerValue: "COLOR FADE"),
     Item(id: 3, expandedValue: flash(), headerValue: "FLASH"),
-    Item(id: 4, expandedValue: half_one_color(), headerValue: "HALF ONE COLOR")
+    Item(id: 4, expandedValue: half_one_color(), headerValue: "HALF ONE COLOR"),
+    Item(id: 5, expandedValue: police_light(), headerValue: "POLICE LIGHT")
   ];
 
   @override
@@ -51,7 +53,7 @@ class _ExpansionPanelHolderState extends State<ExpansionPanelHolder> {
   Widget _buildPanel() {
     return ExpansionPanelList.radio(
       animationDuration: Duration(milliseconds: 400),
-      initialOpenPanelValue: 4,
+      initialOpenPanelValue: 5,
       children: _data.map<ExpansionPanelRadio>((Item item) {
         return ExpansionPanelRadio(
             canTapOnHeader: true,

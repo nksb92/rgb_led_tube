@@ -185,7 +185,7 @@ class _all_one_color_state extends State<all_one_color> {
               padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
               child: ElevatedButton(
                 onPressed: save,
-                child: Icon(Icons.send),
+                child: const Icon(Icons.send),
               ),
             )
           ],

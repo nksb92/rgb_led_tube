@@ -145,7 +145,7 @@ class _color_fade_state extends State<color_fade> {
               padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
               child: ElevatedButton(
                 onPressed: save,
-                child: Icon(Icons.send),
+                child: const Icon(Icons.send),
               ),
             )
           ],

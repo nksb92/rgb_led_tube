@@ -203,7 +203,7 @@ class _flash_state extends State<flash> {
               padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
               child: ElevatedButton(
                 onPressed: save,
-                child: Icon(Icons.send),
+                child: const Icon(Icons.send),
               ),
             )
           ],
