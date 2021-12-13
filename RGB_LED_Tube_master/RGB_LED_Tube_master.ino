@@ -11,19 +11,34 @@ CHSV PURE_BLUE(160, 255, 255);
 CHSV PURE_WHITE(0, 0, 255);
 CHSV PURE_BLACK(0, 0, 0);
 CHSV WHITE_ONE(0, 0, 152);
+CHSV TEAL(135, 255, 255);
+CHSV ORANGE(10, 255, 255);
+CHSV PURPLE(192, 255, 255);
+CHSV LIME(90, 255, 255);
+
+/*
+   0 -> rainbow
+   1 -> color_fade
+   2 -> all_one_color
+   3 -> police_light
+   4 -> half_one_color
+   5 -> breathe
+   6 -> flash
+   7 -> running_light
+*/
 
 // variable definition
-int TIME_DELAY = 20;
-int FUNC_CHOICE = 0;
-int SLAVE_NUMBER = 2;
+int TIME_DELAY = 50;
+int FUNC_CHOICE = 4;
+int SLAVE_NUMBER = 3;
 int COLOR_SHIFT = 0;
-int LOWER_LIMIT = 10;
+int LOWER_LIMIT = 20;
 int UPPER_LIMIT = 150;
-CHSV CHOOSEN_COLOR_ONE = PURE_RED;
-CHSV CHOOSEN_COLOR_TWO = PURE_BLUE;
+CHSV CHOOSEN_COLOR_ONE = ORANGE;
+CHSV CHOOSEN_COLOR_TWO = TEAL;
 
 // init softwareSerial interfaces, RX=0;2, TX=1;3
-SoftwareSerial rs485(0, 1);
+//SoftwareSerial rs485(0, 1);
 SoftwareSerial bluetooth_con(2, 3);
 
 void send_data(int adress, int hue, int sat, int value)
@@ -35,8 +50,9 @@ void send_data(int adress, int hue, int sat, int value)
     @param value -> int value of the color, 0-255
 */
 {
-  byte message[TXSIZE] = {byte("<"), byte(adress), byte(hue), byte(sat), byte(value)};
-  rs485.write(message, TXSIZE);
+  byte message[TXSIZE] = {byte(-1), byte(adress), byte(hue), byte(sat), byte(value)};
+  Serial.write(message, TXSIZE);
+  //rs485.write(message, TXSIZE);
 }
 
 void blackout(int slave_number)
@@ -168,7 +184,7 @@ void all_one_color(int slave_number, CHSV color, int color_shift)
   {
     send_data(i, (color[0] + i * color_shift) % 255, color[1], color[2]);
   }
-  delay(500);
+  delay(1000);
 }
 
 void half_one_color(int slave_number, CHSV color_one, CHSV color_two)
@@ -184,7 +200,7 @@ void half_one_color(int slave_number, CHSV color_one, CHSV color_two)
     if (i < slave_number / 2) send_data(i, color_one[0], color_one[1], color_one[2]);
     else send_data(i, color_two[0], color_two[1], color_two[2]);
   }
-  delay(500);
+  delay(1000);
 }
 
 void breathe(int slave_number, int color_shift, int lower_limit, int upper_limit, CHSV color, int time_delay)
@@ -225,9 +241,10 @@ void running_light(int time_delay, int slave_number, CHSV color_one, CHSV color_
     @param color_two -> CHSV color of the running light
 */
 {
+  time_delay *= 10;
   for (int i = 0; i < slave_number; i++)
   {
-    for (int j = 0; i < slave_number; j++)
+    for (int j = 0; j < slave_number; j++)
     {
       if (j == i) send_data(j, color_two[0], color_two[1], color_two[2]);
       else send_data(j, color_one[0], color_one[1], color_one[2]);
@@ -241,12 +258,14 @@ void serial_data()
     @brief -> interrupts the main programm and reads the bluetooth data in
 */
 {
+  byte message[4];
   if (bluetooth_con.available() > 0)
   {
-    byte character = bluetooth_con.read();
-    if (character == byte("<")) {
-      byte message[9];
-      bluetooth_con.readBytes(message, 9);
+    char character = bluetooth_con.read();
+    Serial.println(character);
+    if (character == -1){
+      bluetooth_con.readBytes(message, 4);
+      //Serial.println(int(message));
     }
   }
 }
@@ -256,7 +275,7 @@ void setup()
   delay(1000);
   // begin of the Serial communication
   bluetooth_con.begin(9600);
-  rs485.begin(9600);
+  Serial.begin(9600);
   delay(100);
   // init the timer interrupt
   Timer1.initialize(1000);
@@ -266,7 +285,7 @@ void setup()
 }
 
 void loop()
-{
+{  
   switch (FUNC_CHOICE)
   {
     case 0:

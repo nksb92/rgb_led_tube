@@ -1,7 +1,3 @@
-/// Flutter code sample for ExpansionPanelList
-
-// Here is a simple example of how to implement ExpansionPanelList.
-
 import 'package:flutter/material.dart';
 import 'package:rgb_led_tube_app/functions/all_one_color.dart';
 import 'package:rgb_led_tube_app/functions/breathe.dart';
@@ -57,7 +53,7 @@ class _ExpansionPanelHolderState extends State<ExpansionPanelHolder> {
   Widget _buildPanel() {
     return ExpansionPanelList.radio(
       animationDuration: Duration(milliseconds: 400),
-      initialOpenPanelValue: 7,
+      initialOpenPanelValue: 0,
       children: _data.map<ExpansionPanelRadio>((Item item) {
         return ExpansionPanelRadio(
             canTapOnHeader: true,

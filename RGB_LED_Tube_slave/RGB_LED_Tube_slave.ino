@@ -5,7 +5,7 @@
 #define BLUE_PIN 10
 
 CRGB rgb;
-int slave_adress = 1;
+int slave_adress = 0;
 const int message_length = 4;
 byte message[message_length];
 int list[message_length];
@@ -20,7 +20,8 @@ void setup() {
 void loop() {
   if (Serial.available()) {
     byte incoming_byte = Serial.read();
-    if (incoming_byte  == byte("<"))
+    Serial.println(int(incoming_byte));
+    if (incoming_byte  == byte(-1))
     {
       Serial.readBytes(message, message_length);
       for (int i = 0; i < message_length; i++)
